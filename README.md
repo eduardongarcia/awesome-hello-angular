@@ -80,3 +80,8 @@ Obs: remove pretty
 chai
 https://www.chaijs.com/api/bdd/#method_include
 ```
+
+**Base app**
+```
+https://www.freecodecamp.org/news/angular-8-tutorial-in-easy-steps/
+```
