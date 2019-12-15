@@ -85,3 +85,6 @@ https://www.chaijs.com/api/bdd/#method_include
 ```
 https://www.freecodecamp.org/news/angular-8-tutorial-in-easy-steps/
 ```
+Run `npm run generate` to populate fake database
+
+Run `npm run server` to expose fake json server
