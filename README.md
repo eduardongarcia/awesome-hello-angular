@@ -88,3 +88,13 @@ https://www.freecodecamp.org/news/angular-8-tutorial-in-easy-steps/
 Run `npm run generate` to populate fake database
 
 Run `npm run server` to expose fake json server
+
+**Testing**
+```
+https://www.ng-conf.org/2019/mocking-dependencies-angular/
+```
+
+Can't resolve all parameters for Component: (?)
+```
+https://github.com/thymikee/jest-preset-angular/issues/288
+```
