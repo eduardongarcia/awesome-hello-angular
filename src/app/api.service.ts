@@ -10,16 +10,17 @@ export class ApiService {
 
   private SERVER_URL = "http://localhost:3000/products";
 
-  public first: string = "";
-  public prev: string = "";
-  public next: string = "";
-  public last: string = "";
+  public first: string;
+  public prev: string;
+  public next: string;
+  public last: string;
 
   constructor(private httpClient: HttpClient) { }
 
   handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!';
+    let errorMessage;
     if(error.error instanceof ErrorEvent) {
+      console.log(error.error);
       errorMessage = `Error: ${error.error.message}`;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
@@ -29,7 +30,7 @@ export class ApiService {
   }
 
   parseLinkHeader(header) {
-    if (header.length == 0) {
+    if (!header) {
       return ;
     }
 
