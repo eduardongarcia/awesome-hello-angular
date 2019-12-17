@@ -98,3 +98,10 @@ Can't resolve all parameters for Component: (?)
 ```
 https://github.com/thymikee/jest-preset-angular/issues/288
 ```
+
+Testing Asynchronous Code
+```
+https://netbasal.com/testing-asynchronous-code-in-angular-using-fakeasync-fc777f86ed13
+https://netbasal.com/testing-observables-in-angular-a2dbbfaf5329
+```
+

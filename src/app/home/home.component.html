@@ -1,8 +1,8 @@
 <div style="padding: 13px;">
-  <mat-spinner *ngIf="products.length === 0"></mat-spinner>
+  <mat-spinner [attr.data-loading]="products.length" *ngIf="products.length === 0"></mat-spinner>
 
   <mat-card *ngFor="let product of products" style="margin-top:10px;">
-    <mat-card-header>
+    <mat-card-header [attr.data-card-header]="product.id">
       <mat-card-title>#{{product.id}} {{product.name}}</mat-card-title>
       <mat-card-subtitle>{{product.price}} $/ {{product.quantity}}
       </mat-card-subtitle>

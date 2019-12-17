@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.apiService.sendGetRequest().pipe(takeUntil(this.destroy$)).subscribe((res: HttpResponse<any>)=>{
-      console.log(res);
+      console.log(res.body);
       this.products = res.body;
     })
   }
