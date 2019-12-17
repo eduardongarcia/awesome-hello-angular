@@ -116,7 +116,7 @@ describe('HomeComponent - Unit', () => {
       prev: 'http://localhost:3000/products?_page=2&_limit=4',
       next: 'http://localhost:3000/products?_page=4&_limit=4'
     };
-    homeComponent = new HomeComponent(provide(mockApiServiceComponent))
+    homeComponent = new HomeComponent(provide(mockApiServiceComponent));
   });
 
   it('should be created', () => {
@@ -197,5 +197,27 @@ describe('HomeComponent - Unit', () => {
 
     expect(homeComponent.products).toEqual(mockProductsLastPage);
     expect(mockApiServiceComponent.sendGetRequestToUrl).toHaveBeenCalledWith(mockApiServiceComponent.last);
+  }));
+
+  it('should do nothing when call nextPage without next propertie', fakeAsync(() => {
+    homeComponent = new HomeComponent(provide({
+      first: '',
+    }));
+
+    homeComponent.nextPage();
+    flushMicrotasks();
+
+    expect(mockApiServiceComponent.sendGetRequestToUrl).not.toHaveBeenCalled();
+  }));
+
+  it('should do nothing when call previousPage without prev propertie', fakeAsync(() => {
+    homeComponent = new HomeComponent(provide({
+      prev: '',
+    }));
+
+    homeComponent.previousPage();
+    flushMicrotasks();
+
+    expect(mockApiServiceComponent.sendGetRequestToUrl).not.toHaveBeenCalled();
   }));
 });
