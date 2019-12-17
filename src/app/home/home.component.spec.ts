@@ -1,4 +1,4 @@
-import { HomeComponent } from './home.component';
+import {HomeComponent} from './home.component';
 import {createComponentFactory, mockProvider, Spectator} from "@ngneat/spectator/jest";
 import {ApiService} from "../api.service";
 import {defer} from "rxjs";
@@ -17,7 +17,7 @@ const mockProducts = [{
 const mockResponse = new HttpResponse<any>({body: mockProducts});
 
 const mockApiService = {
-  sendGetRequest: jest.fn(() => asyncData(mockResponse))
+  sendGetRequest: jest.fn(() => asyncData(mockResponse)),
 };
 
 function asyncData<T>(data: T) {
@@ -36,6 +36,7 @@ describe('HomeComponent - Spectator', () => {
       mockProvider(ApiService, mockApiService)
       // { provide: ApiService, useValue: mockApiService}
     ],
+    detectChanges: false,
     shallow: true, // Defaults to false
   });
 
@@ -54,6 +55,7 @@ describe('HomeComponent - Spectator', () => {
     const component = spectator.component;
     spectator.detectChanges();
     flushMicrotasks();
+    spectator.detectChanges();
     expect(component.products).toEqual(mockProducts);
     expect(spectator.queryAll('[data-loading]').length).toBe(0);
     expect(spectator.queryAll('[data-card-header]').length).toBe(1);
@@ -70,11 +72,11 @@ describe('HomeComponent - TestBed', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [HomeComponent],
       providers: [
-        { provide: ApiService, useValue: mockApiService}
+        {provide: ApiService, useValue: mockApiService}
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -95,5 +97,105 @@ describe('HomeComponent - TestBed', () => {
     expect(component.products).toEqual(mockProducts);
     expect(compiled.querySelectorAll('[data-loading]').length).toBe(0);
     expect(compiled.querySelectorAll('[data-card-header]').length).toBe(1);
+  }));
+});
+
+describe('HomeComponent - Unit', () => {
+  let homeComponent: HomeComponent;
+  let mockApiServiceComponent;
+  const provide = (mock: any): any => mock;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    mockApiServiceComponent = {
+      sendGetRequest: jest.fn(() => asyncData(mockResponse)),
+      sendGetRequestToUrl: jest.fn(() => asyncData(mockResponse)),
+      first: 'http://localhost:3000/products?_page=1&_limit=4',
+      last: 'http://localhost:3000/products?_page=100&_limit=4',
+      prev: 'http://localhost:3000/products?_page=2&_limit=4',
+      next: 'http://localhost:3000/products?_page=4&_limit=4'
+    };
+    homeComponent = new HomeComponent(provide(mockApiServiceComponent))
+  });
+
+  it('should be created', () => {
+    expect(homeComponent).toBeTruthy();
+  });
+
+  it('should populate products when call firstPage', fakeAsync(() => {
+    const mockProductsFirstPage = [{
+      id: 1,
+      name: "Name page 1",
+      description: "Description page 1",
+      price: "75.00",
+      imageUrl: "https://source.unsplash.com/1600x900/?product",
+      quantity: 56349
+    }];
+    const mockResponseFirstPage = new HttpResponse<any>({body: mockProductsFirstPage});
+    mockApiServiceComponent.sendGetRequestToUrl.mockImplementationOnce(() => asyncData(mockResponseFirstPage));
+
+    homeComponent.firstPage();
+    flushMicrotasks();
+
+    expect(homeComponent.products).toEqual(mockProductsFirstPage);
+    expect(mockApiServiceComponent.sendGetRequestToUrl).toHaveBeenCalledWith(mockApiServiceComponent.first);
+  }));
+
+  it('should populate products when call previuousPage', fakeAsync(() => {
+    const mockProductsPreviousPage = [{
+      id: 1,
+      name: "Name previous page",
+      description: "Description previous page",
+      price: "75.00",
+      imageUrl: "https://source.unsplash.com/1600x900/?product",
+      quantity: 56349
+    }];
+    const mockResponsePreviousPage = new HttpResponse<any>({body: mockProductsPreviousPage});
+    mockApiServiceComponent.sendGetRequestToUrl.mockImplementationOnce(() => asyncData(mockResponsePreviousPage));
+
+    homeComponent.previousPage();
+    flushMicrotasks();
+
+    expect(homeComponent.products).toEqual(mockProductsPreviousPage);
+    expect(mockApiServiceComponent.sendGetRequestToUrl).toHaveBeenCalledWith(mockApiServiceComponent.prev);
+  }));
+
+  it('should populate products when call nextPage', fakeAsync(() => {
+    const mockProductsNextPage = [{
+      id: 1,
+      name: "Name next page",
+      description: "Description next page",
+      price: "75.00",
+      imageUrl: "https://source.unsplash.com/1600x900/?product",
+      quantity: 56349
+    }];
+    const mockResponseNextPage = new HttpResponse<any>({body: mockProductsNextPage});
+    mockApiServiceComponent.sendGetRequestToUrl.mockImplementationOnce(() => asyncData(mockResponseNextPage));
+
+    homeComponent.nextPage();
+    flushMicrotasks();
+
+    expect(homeComponent.products).toEqual(mockProductsNextPage);
+    expect(mockApiServiceComponent.sendGetRequestToUrl).toHaveBeenCalledWith(mockApiServiceComponent.next);
+  }));
+
+  it('should populate products when call lastPage', fakeAsync(() => {
+    const mockProductsLastPage = [{
+      id: 1,
+      name: "Name last page",
+      description: "Description last page",
+      price: "75.00",
+      imageUrl: "https://source.unsplash.com/1600x900/?product",
+      quantity: 56349
+    }];
+    const mockResponseLastPage = new HttpResponse<any>({body: mockProductsLastPage});
+    mockApiServiceComponent.sendGetRequestToUrl.mockImplementationOnce(() => asyncData(mockResponseLastPage));
+
+    homeComponent.lastPage();
+    flushMicrotasks();
+
+    expect(homeComponent.products).toEqual(mockProductsLastPage);
+    expect(mockApiServiceComponent.sendGetRequestToUrl).toHaveBeenCalledWith(mockApiServiceComponent.last);
   }));
 });
