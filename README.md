@@ -105,3 +105,7 @@ https://netbasal.com/testing-asynchronous-code-in-angular-using-fakeasync-fc777f
 https://netbasal.com/testing-observables-in-angular-a2dbbfaf5329
 ```
 
+Deploy
+```
+https://medium.com/codfeedev/deploy-multi-environments-with-angular-nginx-and-docker-fc74254f8311
+```
