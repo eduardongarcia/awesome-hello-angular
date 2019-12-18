@@ -16,12 +16,12 @@ exports.config = {
   multiCapabilities: [{
     browserName: 'firefox',
     'moz:firefoxOptions': {
-      args: [ "--headless" ]
+      args: ["--headless"]
     }
   }, {
     browserName: 'chrome',
     chromeOptions: {
-      args: [ "--headless", "--disable-gpu", "--window-size=1366,768", "--ignore-certificate-errors" ]
+      args: ["--headless", "--disable-gpu", "--window-size=1366,768", "--ignore-certificate-errors"]
     }
   }],
   directConnect: true,
@@ -36,7 +36,7 @@ exports.config = {
   },
   plugins: [{
     package: 'protractor-multiple-cucumber-html-reporter-plugin',
-    options:{
+    options: {
       automaticallyGenerateReport: true,
       removeExistingJsonReportFile: true,
       reportPath: 'acceptance-test/report',
@@ -48,5 +48,6 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.json')
     });
   },
-  afterLaunch: function() {}
+  afterLaunch: function () {
+  }
 };

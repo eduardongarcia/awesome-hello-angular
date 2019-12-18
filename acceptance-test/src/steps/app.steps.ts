@@ -1,6 +1,6 @@
-import { Before, Given, Then, When, After } from 'cucumber';
-import { expect } from 'chai';
-import { AppPage } from '../pages/app.po';
+import {After, Before, Given, Then, When} from 'cucumber';
+import {expect} from 'chai';
+import {AppPage} from '../pages/app.po';
 import {browser, logging} from 'protractor';
 
 let page: AppPage;
@@ -13,10 +13,11 @@ Given('Eu estou na home', async () => {
   await page.navigateTo();
 });
 
-When('Eu faco nada', () => {});
+When('Eu faco nada', () => {
+});
 
 Then('Eu deveria ver o titulo', async () => {
-  expect(await page.getTitleText()).to.equal('angular-awesome-hello app is running!');
+  expect(await page.getTitleText()).to.equal('My Angular Store');
 });
 
 After(async () => {
