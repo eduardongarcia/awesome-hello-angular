@@ -105,7 +105,13 @@ https://netbasal.com/testing-asynchronous-code-in-angular-using-fakeasync-fc777f
 https://netbasal.com/testing-observables-in-angular-a2dbbfaf5329
 ```
 
-Deploy
+**Deploy**
 ```
 https://medium.com/codfeedev/deploy-multi-environments-with-angular-nginx-and-docker-fc74254f8311
 ```
+
+**WIP**
+- Config by ENV var (Docker build)
+- Keycloak
+- stubby4node
+- BFF
