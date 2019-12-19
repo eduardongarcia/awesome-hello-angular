@@ -3,8 +3,13 @@
 ## Aulinha de Node
 - https://www.fullstacktutorials.com/interviews/node-js-interview-questions-29.html
 
+## Arquitetura Angular 
+- https://angular.io/guide/architecture
+- https://dev.to/casperns/how-angular-trigger-indexhtml-and-start-working-1l46
+
 ## Stack do projeto
 - Angular 8
+- Scss
 - Jest
 - Spectator
 - Protractor
@@ -22,7 +27,9 @@
     - **Obs:** A parte do consumo da API (step 8 a diante) tem alguns bugs de nomes de arquivo e métodos
 
 ## Next
-- Jest/Spectator
+- Node/Npm
+- Jest/Spectator/TestBed
+- Observable
 - Angular modules
 - SCSS
 - Deploy
