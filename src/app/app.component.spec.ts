@@ -1,7 +1,6 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import {configureTestSuite} from 'ng-bullet';
+import {async, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
 import {createComponentFactory, Spectator} from '@ngneat/spectator/jest';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 
@@ -35,7 +34,7 @@ describe('TestBed default', () => {
       const fixture = TestBed.createComponent(AppComponent);
       fixture.detectChanges();
       const compiled = fixture.debugElement.nativeElement;
-      expect(compiled.querySelector('[data-test-title]').textContent).toContain('My Angular Store');
+      expect(compiled.querySelector('[data-test-title]').textContent).toContain('angular-awesome-hello');
     });
   });
 });
@@ -65,8 +64,11 @@ describe('Spectator', () => {
     });
 
     it('should render title', () => {
+      // spectator.detectChanges();
+      const app = spectator.component;
+      app.title = 'teste';
       spectator.detectChanges();
-      expect(spectator.query('.content span').textContent).toContain('angular-awesome-hello app is running!');
+      expect(spectator.query('[data-test-title]').textContent).toContain('angular-awesome-hello');
     });
   });
 });

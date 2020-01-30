@@ -1,25 +1,32 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { HomeComponent } from './home.component';
+import {HomeComponent} from './home.component';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
-    })
-    .compileComponents();
-  }));
+  let homeComponent: HomeComponent;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be created', () => {
+    homeComponent = new HomeComponent({});
+    expect(homeComponent).toBeTruthy();
+  });
+
+  it('first page', () => {
+    const mockResponse = {body: ['']};
+    const mockSubscribe = jest.fn((cb) => cb(mockResponse));
+    const mockPipe = jest.fn(() => ({subscribe: mockSubscribe}));
+    const mockSendGetRequestToUrl = jest.fn(() => ({pipe: mockPipe}));
+    const mockApiService = {
+      sendGetRequestToUrl: mockSendGetRequestToUrl,
+      first: 'teste',
+    };
+    homeComponent = new HomeComponent(mockApiService);
+
+    homeComponent.firstPage();
+
+    expect(mockSendGetRequestToUrl).toHaveBeenCalledWith('teste');
+    expect(homeComponent.products.length).toBe(1);
   });
 });
